@@ -3,6 +3,7 @@ package spring_data_jpa.belajar_spring_data_jpa.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Category;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
 
@@ -48,5 +49,14 @@ public class ProductRepositoryTest {
         assertEquals(2, products.size());
         assertEquals("Apple iPhone 14 Pro Max", products.get(0).getName());
         assertEquals("Apple iPhone 13 Pro Max", products.get(1).getName());
+    }
+
+    @Test
+    void sort(){
+        Sort sort = Sort.by(Sort.Order.desc("id"));
+        List<Product> products = productRepository.findAllByCategory_Name("GADGET MURAH", sort);
+        assertEquals(2, products.size());
+        assertEquals("Apple iPhone 13 Pro Max", products.get(0).getName());
+        assertEquals("Apple iPhone 14 Pro Max", products.get(1).getName());
     }
 }
