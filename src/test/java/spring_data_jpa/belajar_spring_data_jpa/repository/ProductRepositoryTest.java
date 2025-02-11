@@ -3,6 +3,8 @@ package spring_data_jpa.belajar_spring_data_jpa.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Category;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
@@ -58,5 +60,22 @@ public class ProductRepositoryTest {
         assertEquals(2, products.size());
         assertEquals("Apple iPhone 13 Pro Max", products.get(0).getName());
         assertEquals("Apple iPhone 14 Pro Max", products.get(1).getName());
+    }
+
+    @Test
+    void testFindProductWithPageable(){
+        // Page 0
+        Pageable pageable = PageRequest.of(0,1, Sort.by(Sort.Order.desc("id")));
+        List<Product> products = productRepository.findAllByCategory_Name("GADGET MURAH", pageable);
+
+        assertEquals(1, products.size());
+        assertEquals("Apple iPhone 13 Pro Max", products.get(0).getName());
+
+        //Page 1
+        pageable = PageRequest.of(1,1, Sort.by(Sort.Order.desc("id")));
+        products = productRepository.findAllByCategory_Name("GADGET MURAH", pageable);
+
+        assertEquals(1, products.size());
+        assertEquals("Apple iPhone 14 Pro Max", products.get(0).getName());
     }
 }
