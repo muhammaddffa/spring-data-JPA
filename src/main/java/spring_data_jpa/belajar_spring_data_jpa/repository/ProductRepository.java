@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    @Transactional
     int deleteByName(String name);
 
     // Exist method untuk mencari data nya apakah ada atau tidak (tidak mengselect semua data nya (lebih simple))
