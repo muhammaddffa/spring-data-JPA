@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    int deleteByName(String name);
+
     // Exist method untuk mencari data nya apakah ada atau tidak (tidak mengselect semua data nya (lebih simple))
     boolean existsByName(String name);
 
