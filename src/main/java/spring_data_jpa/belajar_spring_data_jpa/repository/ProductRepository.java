@@ -9,13 +9,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import spring_data_jpa.belajar_spring_data_jpa.entity.Category;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    // harus menggunakan @Transactional dalam penggunaan Stream
+    Stream<Product> streamAllByCategory(Category category);
 
     @Modifying
     @Query(value = "delete from Product p where p.name = :name")
