@@ -215,4 +215,27 @@ public class ProductRepositoryTest {
             // Tampilkan konten product
         }
     }
+
+    @Test
+    void lock1(){
+        try {
+            Product product = productRepository.findFirstByIdEquals(1L).orElse(null);
+            assertNotNull(product);
+            product.setPrice(30_000_000L);
+
+            Thread.sleep(30_000L);
+            productRepository.save(product);
+        } catch (InterruptedException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    // PR tidak bisa ke Lock
+    @Test
+    void lock2(){
+        Product product = productRepository.findFirstByIdEquals(1L).orElse(null);
+        assertNotNull(product);
+        product.setPrice(10_000_000L);
+        productRepository.save(product);
+    }
 }
