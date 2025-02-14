@@ -2,6 +2,7 @@ package spring_data_jpa.belajar_spring_data_jpa.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,6 +19,8 @@ import java.util.stream.Stream;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    Slice<Product> findAllByCategory(Category category, Pageable pageable);
 
     // harus menggunakan @Transactional dalam penggunaan Stream
     Stream<Product> streamAllByCategory(Category category);
