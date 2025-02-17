@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Category;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
+import spring_data_jpa.belajar_spring_data_jpa.model.SimpleProduct;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ import java.util.stream.Stream;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
+
+    <T>List<T> findAllByNameLike(String name, Class<T> tClass);
 
     @Transactional
     @Lock(LockModeType.PESSIMISTIC_WRITE)

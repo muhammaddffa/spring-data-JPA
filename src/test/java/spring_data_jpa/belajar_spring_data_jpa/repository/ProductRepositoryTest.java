@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.support.TransactionOperations;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Category;
 import spring_data_jpa.belajar_spring_data_jpa.entity.Product;
+import spring_data_jpa.belajar_spring_data_jpa.model.ProductPrice;
+import spring_data_jpa.belajar_spring_data_jpa.model.SimpleProduct;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -253,5 +255,14 @@ public class ProductRepositoryTest {
 
         List<Product> products = productRepository.findAll(specification);
         assertEquals(2, products.size());
+    }
+
+    @Test
+    void projection(){
+        List<SimpleProduct> simpleProducts = productRepository.findAllByNameLike("%Apple%", SimpleProduct.class);
+        assertEquals(2, simpleProducts.size());
+
+        List<ProductPrice> productsPrice = productRepository.findAllByNameLike("%Apple%", ProductPrice.class);
+        assertEquals(2, productsPrice.size());
     }
 }
